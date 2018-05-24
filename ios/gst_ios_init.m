@@ -1,19 +1,47 @@
 #include "gst_ios_init.h"
 
+#if defined(GST_IOS_PLUGIN_NLE) || defined(GST_IOS_PLUGINS_GES)
 GST_PLUGIN_STATIC_DECLARE(nle);
+#endif
+#if defined(GST_IOS_PLUGIN_COREELEMENTS) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(coreelements);
+#endif
+#if defined(GST_IOS_PLUGIN_ADDER) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(adder);
+#endif
+#if defined(GST_IOS_PLUGIN_APP) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(app);
+#endif
+#if defined(GST_IOS_PLUGIN_AUDIOCONVERT) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(audioconvert);
+#endif
+#if defined(GST_IOS_PLUGIN_AUDIORATE) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(audiorate);
+#endif
+#if defined(GST_IOS_PLUGIN_AUDIORESAMPLE) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(audioresample);
+#endif
+#if defined(GST_IOS_PLUGIN_AUDIOTESTSRC) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(audiotestsrc);
+#endif
+#if defined(GST_IOS_PLUGIN_GIO) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(gio);
+#endif
+#if defined(GST_IOS_PLUGIN_PANGO) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(pango);
+#endif
+#if defined(GST_IOS_PLUGIN_TYPEFINDFUNCTIONS) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(typefindfunctions);
+#endif
+#if defined(GST_IOS_PLUGIN_VIDEOCONVERT) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videoconvert);
+#endif
+#if defined(GST_IOS_PLUGIN_VIDEORATE) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videorate);
+#endif
+#if defined(GST_IOS_PLUGIN_VIDEOSCALE) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videoscale);
+#endif
 
 #if defined(GST_IOS_PLUGIN_VIDEOTESTSRC) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videotestsrc);
