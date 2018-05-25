@@ -28,6 +28,7 @@
 		18006A4220B01435002944B6 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18006A4120B01435002944B6 /* libstdc++.6.0.9.tbd */; };
 		18006A4420B01487002944B6 /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18006A4320B01487002944B6 /* libiconv.2.tbd */; };
 		18006A4620B01516002944B6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18006A4520B01515002944B6 /* AssetsLibrary.framework */; };
+		1808277920B7F8E1006442AD /* GStreamerBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1808277820B7F8E1006442AD /* GStreamerBackend.m */; };
 		18AB828B20B1B96900DC063B /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AB828A20B1B96900DC063B /* gst_ios_init.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -351,6 +352,9 @@
 		18006A4320B01487002944B6 /* libiconv.2.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libiconv.2.tbd; sourceTree = DEVELOPER_DIR; };
 		18006A4520B01515002944B6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		18006A8720B02515002944B6 /* gst_ios_init.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gst_ios_init.h; path = "../../gst-examples/playback/player/ios/GstPlay/gst_ios_init.h"; sourceTree = "<group>"; };
+		1808277820B7F8E1006442AD /* GStreamerBackend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GStreamerBackend.m; sourceTree = "<group>"; };
+		1808279F20B7F919006442AD /* GStreamerBackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GStreamerBackend.h; sourceTree = "<group>"; };
+		180827A020B7F954006442AD /* GStreamerBackendDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GStreamerBackendDelegate.h; sourceTree = "<group>"; };
 		18AB828A20B1B96900DC063B /* gst_ios_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gst_ios_init.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* gstreameroscillatorapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gstreameroscillatorapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* gstreameroscillatorapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "gstreameroscillatorapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -599,6 +603,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				180827A020B7F954006442AD /* GStreamerBackendDelegate.h */,
+				1808279F20B7F919006442AD /* GStreamerBackend.h */,
+				1808277820B7F8E1006442AD /* GStreamerBackend.m */,
 				18006A8720B02515002944B6 /* gst_ios_init.h */,
 				18AB828A20B1B96900DC063B /* gst_ios_init.m */,
 				18006A3C20B00E39002944B6 /* RNGStreamer.h */,
@@ -1146,6 +1153,7 @@
 			files = (
 				18AB828B20B1B96900DC063B /* gst_ios_init.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1808277920B7F8E1006442AD /* GStreamerBackend.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				18006A3B20B00E30002944B6 /* RNGStreamerManager.mm in Sources */,
 			);
@@ -1445,12 +1453,12 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "gstreameroscillatorapp-tvOSTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				HEADER_SEARCH_PATHS = (
 					"\"~/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers\"",
 					../lib,
 				);
+				INFOPLIST_FILE = "gstreameroscillatorapp-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",

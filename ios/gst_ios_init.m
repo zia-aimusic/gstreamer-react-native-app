@@ -1,4 +1,7 @@
 #include "gst_ios_init.h"
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <Availability.h>
 
 #if defined(GST_IOS_PLUGIN_NLE) || defined(GST_IOS_PLUGINS_GES)
 GST_PLUGIN_STATIC_DECLARE(nle);
@@ -42,7 +45,6 @@ GST_PLUGIN_STATIC_DECLARE(videorate);
 #if defined(GST_IOS_PLUGIN_VIDEOSCALE) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videoscale);
 #endif
-
 #if defined(GST_IOS_PLUGIN_VIDEOTESTSRC) || defined(GST_IOS_PLUGINS_CORE)
 GST_PLUGIN_STATIC_DECLARE(videotestsrc);
 #endif
@@ -99,6 +101,9 @@ GST_PLUGIN_STATIC_DECLARE(dvdsub);
 #endif
 #if defined(GST_IOS_PLUGIN_DVDLPCMDEC) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
 GST_PLUGIN_STATIC_DECLARE(dvdlpcmdec);
+#endif
+#if defined(GST_IOS_PLUGIN_MAD) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
+GST_PLUGIN_STATIC_DECLARE(mad);
 #endif
 #if defined(GST_IOS_PLUGIN_MPEG2DEC) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
 GST_PLUGIN_STATIC_DECLARE(mpeg2dec);
@@ -298,6 +303,9 @@ GST_PLUGIN_STATIC_DECLARE(audiomixer);
 #if defined(GST_IOS_PLUGIN_COMPOSITOR) || defined(GST_IOS_PLUGINS_EFFECTS)
 GST_PLUGIN_STATIC_DECLARE(compositor);
 #endif
+#if defined(GST_IOS_PLUGIN_WEBRTCDSP) || defined(GST_IOS_PLUGINS_EFFECTS)
+GST_PLUGIN_STATIC_DECLARE(webrtcdsp);
+#endif
 #if defined(GST_IOS_PLUGIN_SUBPARSE) || defined(GST_IOS_PLUGINS_CODECS)
 GST_PLUGIN_STATIC_DECLARE(subparse);
 #endif
@@ -433,8 +441,11 @@ GST_PLUGIN_STATIC_DECLARE(pnm);
 #if defined(GST_IOS_PLUGIN_RFBSRC) || defined(GST_IOS_PLUGINS_CODECS)
 GST_PLUGIN_STATIC_DECLARE(rfbsrc);
 #endif
-#if defined(GST_IOS_PLUGIN_SIREN) || defined(GST_IOS_PLUGINS_CODECS)
-GST_PLUGIN_STATIC_DECLARE(siren);
+#if defined(GST_IOS_PLUGIN_SCHRO) || defined(GST_IOS_PLUGINS_CODECS)
+GST_PLUGIN_STATIC_DECLARE(schro);
+#endif
+#if defined(GST_IOS_PLUGIN_GSTSIREN) || defined(GST_IOS_PLUGINS_CODECS)
+GST_PLUGIN_STATIC_DECLARE(gstsiren);
 #endif
 #if defined(GST_IOS_PLUGIN_SMOOTHSTREAMING) || defined(GST_IOS_PLUGINS_CODECS)
 GST_PLUGIN_STATIC_DECLARE(smoothstreaming);
@@ -481,8 +492,11 @@ GST_PLUGIN_STATIC_DECLARE(soup);
 #if defined(GST_IOS_PLUGIN_UDP) || defined(GST_IOS_PLUGINS_NET)
 GST_PLUGIN_STATIC_DECLARE(udp);
 #endif
-#if defined(GST_IOS_PLUGIN_SDPELEM) || defined(GST_IOS_PLUGINS_NET)
-GST_PLUGIN_STATIC_DECLARE(sdpelem);
+#if defined(GST_IOS_PLUGIN_DATAURISRC) || defined(GST_IOS_PLUGINS_NET)
+GST_PLUGIN_STATIC_DECLARE(dataurisrc);
+#endif
+#if defined(GST_IOS_PLUGIN_SDP) || defined(GST_IOS_PLUGINS_NET)
+GST_PLUGIN_STATIC_DECLARE(sdp);
 #endif
 #if defined(GST_IOS_PLUGIN_SRTP) || defined(GST_IOS_PLUGINS_NET)
 GST_PLUGIN_STATIC_DECLARE(srtp);
@@ -501,33 +515,33 @@ gst_ios_init (void)
 {
   GstPluginFeature *plugin;
   GstRegistry *reg;
-//  NSString *resources = [[NSBundle mainBundle] resourcePath];
-//  NSString *tmp = NSTemporaryDirectory();
-//  NSString *cache = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
-//  NSString *docs = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-//
-//  const gchar *resources_dir = [resources UTF8String];
-//  const gchar *tmp_dir = [tmp UTF8String];
-//  const gchar *cache_dir = [cache UTF8String];
-//  const gchar *docs_dir = [docs UTF8String];
+  NSString *resources = [[NSBundle mainBundle] resourcePath];
+  NSString *tmp = NSTemporaryDirectory();
+  NSString *cache = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+  NSString *docs = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+  
+  const gchar *resources_dir = [resources UTF8String];
+  const gchar *tmp_dir = [tmp UTF8String];
+  const gchar *cache_dir = [cache UTF8String];
+  const gchar *docs_dir = [docs UTF8String];
   gchar *ca_certificates;
   
-//  g_setenv ("TMP", tmp_dir, TRUE);
-//  g_setenv ("TEMP", tmp_dir, TRUE);
-//  g_setenv ("TMPDIR", tmp_dir, TRUE);
-//  g_setenv ("XDG_RUNTIME_DIR", resources_dir, TRUE);
-//  g_setenv ("XDG_CACHE_HOME", cache_dir, TRUE);
-//
-//  g_setenv ("HOME", docs_dir, TRUE);
-//  g_setenv ("XDG_DATA_DIRS", resources_dir, TRUE);
-//  g_setenv ("XDG_CONFIG_DIRS", resources_dir, TRUE);
-//  g_setenv ("XDG_CONFIG_HOME", cache_dir, TRUE);
-//  g_setenv ("XDG_DATA_HOME", resources_dir, TRUE);
-//  g_setenv ("FONTCONFIG_PATH", resources_dir, TRUE);
+  g_setenv ("TMP", tmp_dir, TRUE);
+  g_setenv ("TEMP", tmp_dir, TRUE);
+  g_setenv ("TMPDIR", tmp_dir, TRUE);
+  g_setenv ("XDG_RUNTIME_DIR", resources_dir, TRUE);
+  g_setenv ("XDG_CACHE_HOME", cache_dir, TRUE);
   
-//  ca_certificates = g_build_filename (resources_dir, "ssl", "certs", "ca-certifcates.crt", NULL);
-  //g_setenv ("CA_CERTIFICATES", ca_certificates, TRUE);
-  //g_free (ca_certificates);
+  g_setenv ("HOME", docs_dir, TRUE);
+  g_setenv ("XDG_DATA_DIRS", resources_dir, TRUE);
+  g_setenv ("XDG_CONFIG_DIRS", resources_dir, TRUE);
+  g_setenv ("XDG_CONFIG_HOME", cache_dir, TRUE);
+  g_setenv ("XDG_DATA_HOME", resources_dir, TRUE);
+  g_setenv ("FONTCONFIG_PATH", resources_dir, TRUE);
+  
+  ca_certificates = g_build_filename (resources_dir, "ssl", "certs", "ca-certifcates.crt", NULL);
+  g_setenv ("CA_CERTIFICATES", ca_certificates, TRUE);
+  g_free (ca_certificates);
   
   gst_init (NULL, NULL);
   
@@ -629,6 +643,9 @@ gst_ios_init (void)
 #endif
 #if defined(GST_IOS_PLUGIN_DVDLPCMDEC) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
   GST_PLUGIN_STATIC_REGISTER(dvdlpcmdec);
+#endif
+#if defined(GST_IOS_PLUGIN_MAD) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
+  GST_PLUGIN_STATIC_REGISTER(mad);
 #endif
 #if defined(GST_IOS_PLUGIN_MPEG2DEC) || defined(GST_IOS_PLUGINS_CODECS_RESTRICTED)
   GST_PLUGIN_STATIC_REGISTER(mpeg2dec);
@@ -828,6 +845,9 @@ gst_ios_init (void)
 #if defined(GST_IOS_PLUGIN_COMPOSITOR) || defined(GST_IOS_PLUGINS_EFFECTS)
   GST_PLUGIN_STATIC_REGISTER(compositor);
 #endif
+#if defined(GST_IOS_PLUGIN_WEBRTCDSP) || defined(GST_IOS_PLUGINS_EFFECTS)
+  GST_PLUGIN_STATIC_REGISTER(webrtcdsp);
+#endif
 #if defined(GST_IOS_PLUGIN_SUBPARSE) || defined(GST_IOS_PLUGINS_CODECS)
   GST_PLUGIN_STATIC_REGISTER(subparse);
 #endif
@@ -963,8 +983,11 @@ gst_ios_init (void)
 #if defined(GST_IOS_PLUGIN_RFBSRC) || defined(GST_IOS_PLUGINS_CODECS)
   GST_PLUGIN_STATIC_REGISTER(rfbsrc);
 #endif
-#if defined(GST_IOS_PLUGIN_SIREN) || defined(GST_IOS_PLUGINS_CODECS)
-  GST_PLUGIN_STATIC_REGISTER(siren);
+#if defined(GST_IOS_PLUGIN_SCHRO) || defined(GST_IOS_PLUGINS_CODECS)
+  GST_PLUGIN_STATIC_REGISTER(schro);
+#endif
+#if defined(GST_IOS_PLUGIN_GSTSIREN) || defined(GST_IOS_PLUGINS_CODECS)
+  GST_PLUGIN_STATIC_REGISTER(gstsiren);
 #endif
 #if defined(GST_IOS_PLUGIN_SMOOTHSTREAMING) || defined(GST_IOS_PLUGINS_CODECS)
   GST_PLUGIN_STATIC_REGISTER(smoothstreaming);
@@ -1011,8 +1034,11 @@ gst_ios_init (void)
 #if defined(GST_IOS_PLUGIN_UDP) || defined(GST_IOS_PLUGINS_NET)
   GST_PLUGIN_STATIC_REGISTER(udp);
 #endif
-#if defined(GST_IOS_PLUGIN_SDPELEM) || defined(GST_IOS_PLUGINS_NET)
-  GST_PLUGIN_STATIC_REGISTER(sdpelem);
+#if defined(GST_IOS_PLUGIN_DATAURISRC) || defined(GST_IOS_PLUGINS_NET)
+  GST_PLUGIN_STATIC_REGISTER(dataurisrc);
+#endif
+#if defined(GST_IOS_PLUGIN_SDP) || defined(GST_IOS_PLUGINS_NET)
+  GST_PLUGIN_STATIC_REGISTER(sdp);
 #endif
 #if defined(GST_IOS_PLUGIN_SRTP) || defined(GST_IOS_PLUGINS_NET)
   GST_PLUGIN_STATIC_REGISTER(srtp);
